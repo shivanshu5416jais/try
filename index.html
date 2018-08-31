@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>POCKET TANKS</title>
+ 
+	<link rel="stylesheet" type="text/css" href="ptank.css">
+	<!-- <script type="text/javascript" src="ptank.js">
+	</script> -->
+	</head>
+<body>
+	<embed src="bkgmusic.mp3" autostart="true" loop="true"
+width="2" height="0">
+</embed>
+<canvas id="canvas" width="950" height="600"></canvas>
+<div id="tank1"> <img src="t1.png" id="t2" style=" position: absolute;  top: 525px;left: 1000px; height: 50px; width: 75px;">
+	<div id="fire"><img src="ft1.png" id="f2" style="position: relative; top: 528px; left: 1000px; height:10px; width:10px;">
+</div></div>
+<div id="tank2"> <img src="t2.png" id="t1" style=" position: absolute;  top: 528px;left: 410px; height: 50px; width: 75px;">
+<div id="fire"><img src="ft2.png" id="f1" style="position: relative; top: 515px; left: 475px; height:10px; width:10px;"></div>
+</div>
+<div id="container">
+	<div class="control" id="weapon">
+		<select id="weapon-selector" onchange="changeWeapon()">  <!--Call changePower() function-->    
+			<option value="0">WEAPON</option> 
+     			<option value="Weapon1" selected="selected">Weapon1</option>
+     			<option value="Weapon2">Weapon2</option>
+    			<option value="Weapon3">Weapon3</option>
+     </select>
+	</div>
+	<div class="control" id="fire">
+		<span id="fire-weapon">
+			<h1 class="fire-weapon">FIRE</h1>
+		</span>
+	</div>
+	<div class="control" id="angle">
+		<div class="slidecontainer">
+			<input type="range" min="0" max="90" value="90" class="slider" id="myRange">
+			<p>Angle:<span id="demo">49deg</span></p>
+		</div>
+	</div>
+	 <div class="control" id="power">
+		<select id="power-selector" onchange="changePower()">  
+			<option value="0" >Power</option> 
+     <option value="weak" selected="selected">WEAK</option>
+     <option value="normal">NORMAL</option>
+     <option value="strong">STRONG</option>
+     </select>
+	</div> 
+</div>
+
+ <script type="text/javascript" src="main.js"></script>
+
+
+</body></html>
