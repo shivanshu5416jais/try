@@ -1,5 +1,5 @@
 * {
-	/*background-image: url(done.jpg);*/
+	/*background-image: url(assests/done.jpg);*/
 	background-repeat: no-repeat;
 	background-size: cover;
 	margin: none;
@@ -12,7 +12,7 @@ canvas {
 	left: 160px;
 	top: 20px;*/
    /* background: linear-gradient(0deg, red, blue);*/
-	background-image: url(all.jpg);
+	background-image: url(assests/all.jpg);
 	position: absolute;
 	background-repeat: no-repeat;
 	left:260px;
@@ -31,7 +31,7 @@ canvas {
 	height: 80px;
 	width: 950px;
 	left: 260px;
-	top: 584px;
+	top: 565px;
 	background: black;
 
 }

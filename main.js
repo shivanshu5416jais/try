@@ -1,92 +1,91 @@
 
 var canvas = document.querySelector("#canvas");
 var cx = canvas.getContext("2d");
-// control variables
-var isFire_1 = false;
-var isFire_2 = false;
-var score_1 = 0;
-var score_2 = 0;
-var remChances_1 = 5;
-var remChances_2 = 5;
-var angle_1 = Math.PI / 2;
-var angle_2 = Math.PI / 2;
-var weapon_1 = "Weapon1";
-var weapon_2 = "Weapon1";
+var isFire1 = false;
+var isFire2 = false;
+var score1 = 0;
+var score2 = 0;
+var remChances1 = 5;
+var remChances2 = 5;
+var angle1 = Math.PI / 2;
+var angle2 = Math.PI / 2;
+var weapon1 = "Weapon1";
+var weapon2 = "Weapon1";
 
-var myMusic;
+// var myMusic;
+
 // texts for display
 function displayText() {
-  // center text
   cx.font = "35px Verdana";
   cx.fillStyle = "red";
   cx.textAlign = "left";
-  cx.fillText(`Player 1`, 20, 30);
+  cx.fillText("Player 1", 20, 30);
 
   cx.font = "30px Verdana";
   cx.fillStyle = "white";
   cx.textAlign = "left";
-  cx.fillText(`SCORE : ${score_1}`, 20, 70);
+  cx.fillText(`SCORE : ${score1}`, 20, 70);
 
   cx.font = "30px Verdana";
   cx.fillStyle = "#f5df65";
-  cx.fillText(`Chances : ${remChances_1-1} `, 20, 110);
+  cx.fillText(`Chances : ${remChances1} `, 20, 110);
 
-  // Player_2 info
+  // Player2 info
 
   cx.font = "35px Verdana";
   cx.fillStyle = "red";
   cx.textAlign = "right";
-  cx.fillText(`Player 2`, canvas.width - 20, 30);
+  cx.fillText("Player 2", canvas.width - 20, 30);
 
   cx.font = "30px Verdana";
   cx.fillStyle = "white";
   cx.textAlign = "right";
-  cx.fillText(`SCORE : ${score_2}`, canvas.width - 20, 70);
+  cx.fillText(`SCORE : ${score2}`, canvas.width - 20, 70);
 
   cx.font = "30px Verdana";
   cx.fillStyle = "#f5df65";
   cx.textAlign = "right";
-  cx.fillText(`Chances : ${remChances_2-1} `, canvas.width - 20, 110);
+  cx.fillText(`Chances : ${remChances2} `, canvas.width - 20, 110);
 }
 
 // Weapon Selector
-// function changeWeapon() {
-//   if (document.getElementById("weapon-selector").value == "Weapon1") {
-//     weapon_1 = "Weapon1";
-//     weapon_2 = "Weapon1";
-//   }
-//   if (document.getElementById("weapon-selector").value == "Weapon2") {
-//     weapon_1 = "Weapon2";
-//     weapon_2 = "Weapon2";
-//   }
-//   if (document.getElementById("weapon-selector").value == "Weapon3") {
-//     weapon_1 = "Weapon3";
-//     weapon_2 = "Weapon3";
-//   }
-// }
+function changeWeapon() {
+  if (document.getElementById("weapon-selector").value == "Weapon1") {
+    weapon1 = "Weapon1";
+    weapon2 = "Weapon1";
+  }
+  if (document.getElementById("weapon-selector").value == "Weapon2") {
+    weapon1 = "Weapon2";
+    weapon2 = "Weapon2";
+  }
+  // if (document.getElementById("weapon-selector").value == "Weapon3") {
+  //   weapon1 = "Weapon3";
+  //   weapon2 = "Weapon3";
+  // }
+}
 // click fire action
 const fire = document.querySelector("#fire-weapon");
-fire.addEventListener("click", function (e) {
-  document.getElementById("t2").src = "t1.png";
-  document.getElementById("t1").src = "t2.png";
-  if (remChances_1 == 5) {
-    isFire_1 = true;
-    if (remChances_1 >= 1) {
-      remChances_1--;
+fire.addEventListener("click", function () {
+  // document.getElementById("t2").src = "t1.png";
+  // document.getElementById("t1").src = "t2.png";
+  if (remChances1 == 5) {
+    isFire1 = true;
+    if (remChances1 >= 1) {
+      remChances1--;
     }
-    isFire_2 = false;
-  } else if (isFire_1 && !isFire_2) {
-    isFire_2 = true;
-    if (remChances_2 >= 1) {
-      remChances_2--;
+    isFire2 = false;
+  } else if (isFire1 && !isFire2) {
+    isFire2 = true;
+    if (remChances2 >= 1) {
+      remChances2--;
     }
-    isFire_1 = false;
-  } else if (!isFire_1 && isFire_2) {
-    isFire_1 = true;
-    if (remChances_1 >= 1) {
-      remChances_1--;
+    isFire1 = false;
+  } else if (!isFire1 && isFire2) {
+    isFire1 = true;
+    if (remChances1 >= 1) {
+      remChances1--;
     }
-    isFire_2 = false;
+    isFire2 = false;
   }
 });
 //Slider for Angle
@@ -96,71 +95,63 @@ output.innerHTML = slider.value + "deg";
 
 slider.oninput = function () {
   output.innerHTML = `${this.value}deg`;
-  angle_1 = Math.PI * this.value / 180;
-  angle_2 = Math.PI * this.value / 180;
+  angle1 = Math.PI * this.value / 180;//for tank 1
+  angle2 = Math.PI * this.value / 180;//for tank 2
 };
 
- 
-
-//variables for projectile-one
-var x_1;
-var y_1;
-var u_1 ;
+ //for projectile-one
+var x1;
+var y1;
+var u1 ;
 changePower();
-var time_1 = 0.01;
-var timeOfFlight_1 = 2 * u_1 * Math.sin(angle_1) / 10;
-
-
-// reset projectile two
-function resetProjectileTwo() {
-  x_1 = 0;
-  y_1 = 0;
-  changePower();
-  time_1 = 0.01;
-  timeOfFlight_1 = 2 * u_1 * Math.sin(angle_1) / 10;
-}
-
-// For  Projectile Two
-var x_2;
-var y_2;
-var u_2 ;
-changePower();
-var time_2 = 0.01;
-var timeOfFlight_2 = 2 * u_2 * Math.sin(angle_2) / 10;
-
+var time1 = 0.01;
+var timeOfFlight1 = 2 * u1 * Math.sin(angle1) / 10;
 
 // resetProjectileOne
 function resetProjectileOne() {
-  x_2 = 0;
-  y_2 = 0;
+  x2 = 0;
+  y2 = 0;
   changePower();
-  time_2 = 0.01;
-  timeOfFlight_2 = 2 * u_2 * Math.sin(angle_2) / 10;
+  time2 = 0.01;
+  timeOfFlight2 = 2 * u2 * Math.sin(angle2) / 10;
+}
+
+// For  Projectile Two
+var x2;
+var y2;
+var u2 ;
+changePower();
+var time2 = 0.01;
+var timeOfFlight2 = 2 * u2 * Math.sin(angle2) / 10;
+
+// reset projectile two
+function resetProjectileTwo() {
+  x1 = 0;
+  y1 = 0;
+  changePower();
+  time1 = 0.01;
+  timeOfFlight1 = 2 * u1 * Math.sin(angle1) / 10;
 }
 //for speed
  function changePower() {
   if (document.getElementById("power-selector").value == "weak") {
-    u_1 = 50;
-    u_2 = 50;
+    u1 = 50;
+    u2 = 50;
   }
   if (document.getElementById("power-selector").value == "normal") {
-    u_1 = 70;
-    u_2 = 70;
+    u1 = 70;
+    u2 = 70;
   }
   if (document.getElementById("power-selector").value == "strong") {
-    u_1 = 85;
-    u_2 = 85;
+    u1 = 85;
+    u2 = 85;
   }
 }
 
-
-
- 
-
 //Calculate projectile position for tank one
 function calcPositionOne() {
-  x_1 = u_1 * Math.cos(angle_1) * time_1;
-  y_1 = -(u_1 * Math.sin(angle_1) * time_1 - 0.5 * 10 * time_1 * time_1);
+  x1 = u1 * Math.cos(angle1) * time1;
+  y1 = -(u1 * Math.sin(angle1) * time1 - 0.5 * 10 * time1 * time1);
 }
 
 // Draw Projectile-one
@@ -168,45 +159,65 @@ function drawProjectileOne() {
   calcPositionOne();
   
   if (true) {
-    time_1 += 0.15;
+    time1 += 0.15;
 
+      if(weapon1=="Weapon1")
+    {
       cx.beginPath();
-      cx.arc(240 + x_1, 500 + y_1, 8, 0,12);
+      cx.arc(240 + x1, 500 + y1, 8, 0,12);
       cx.fillStyle = "yellow";
       cx.fill();
       cx.closePath();
+    }
+   else if(weapon1=="Weapon2")
+   {
+    cx.beginPath();
+      cx.arc(240 + x1, 500 + y1, 8, 0,12);
+      cx.fillStyle = "red";
+      cx.fill();
+      cx.closePath();
+   }
   }
-  if (240 + x_1 > 730 && 240 + x_1 < 810 && 500 + y_1 > 487) {
+  if (240 + x1 > 730 && 240 + x1 < 810 && 500 + y1 > 487)
+   {
     
-      score_1 += 500;
+      score1 += 500;
     }
   
       
-    
-  
-}
+
+    }
 // For tank-two
 function calcPositionTwo() {
-  x_2 = -u_2 * Math.cos(angle_2) * time_2;
-  y_2 = -(u_2 * Math.sin(angle_2) * time_2 - 0.5 * 10 * time_2 * time_2);
+  x2 = -u2 * Math.cos(angle2) * time2;
+  y2 = -(u2 * Math.sin(angle2) * time2 - 0.5 * 10 * time2 * time2);
 }
 
 // Draw Projectile-two
 function drawProjectileTwo() {
   calcPositionTwo();
   if (true) {
-    time_2 += 0.15;
-    
+    time2 += 0.15;
+    if(weapon2=="Weapon1")
+    {
       cx.beginPath();
-      cx.arc(740 + x_2, 500 + y_2, 8, 0, 7);
+      cx.arc(740 + x2, 500 + y2, 8, 0, 7);
       cx.fillStyle = "yellow";
       cx.fill();
       cx.closePath();
-    
+    }
+   else if(weapon2=="Weapon2")
+   {
+    cx.beginPath();
+      cx.arc(740 + x2, 500 + y2, 8, 0, 7);
+      cx.fillStyle = "red";
+      cx.fill();
+      cx.closePath();
+   }
   }
-  if (740 + x_2 > 172 && 740 + x_2 < 252 && 500 + y_2 > 487) {
+  if (740 + x2 > 172 && 740 + x2 < 252 && 500 + y2 > 487) {
       
-      score_2 += 500;
+      score2 += 500;
     }
   
 }
@@ -218,22 +229,22 @@ function drawGame() {
     displayText();
 
     //Projectile one
-    if (isFire_1 && remChances_1 >= 1) {
-      if (time_1 < timeOfFlight_1) {
+    if (isFire1 && remChances1 >= 1) {
+      if (time1 < timeOfFlight1) {
         drawProjectileOne();
       }
-      if (time_1 > timeOfFlight_1 ) {
+      if (time1 > timeOfFlight1 ) {
         resetProjectileOne();
-        if (240 + x_1 > 730 && 240 + x_1 < 810 && 500 + y_1 > 487)
+        if (240 + x1 > 730 && 240 + x1 < 810 && 500 + y1 > 487)
           { 
-        function des1() {
-  document.getElementById("t2").src = "ft1.png";
+        function des1(){
+  document.getElementById("t2").src = "assests/ft1.png";
 }
 
 setTimeout(des1, 0000);
            
         function t1() {
-  document.getElementById("t2").src = "t1.png";
+  document.getElementById("t2").src = "assests/t1.png";
 }
 
 setTimeout(t1, 1000);
@@ -241,41 +252,41 @@ setTimeout(t1, 1000);
       }
     }
     //Projectile 2
-    if (isFire_2 && remChances_2 >= 1) {
-      if (time_2 < timeOfFlight_2) {
+    if (isFire2 && remChances2 >= 1) {
+      if (time2 < timeOfFlight2) {
         drawProjectileTwo();
       }
-      if (time_2 > timeOfFlight_2 ) {
+      if (time2 > timeOfFlight2 ) {
         resetProjectileTwo();
-        if (740 + x_2 > 172 && 740 + x_2 < 252 && 500 + y_2 > 487) {
+        if (740 + x2 > 172 && 740 + x2 < 252 && 500 + y2 > 487) {
             function des2() {
-  document.getElementById("t1").src = "ft2.png";
+  document.getElementById("t1").src = "assests/ft2.png";
 }
 
 setTimeout(des2, 0000);
            
         function t2() {
-  document.getElementById("t1").src = "t2.png";
+  document.getElementById("t1").src = "assests/t2.png";
 }
 
 setTimeout(t2, 1000);
         }
       }
     }
-    if (remChances_1 ==0 || remChances_2 ==0) {
-      if (score_1 > score_2) {
-        cx.font = "bold 34px Times New Roman";
+    if (remChances1 ==0 && remChances2 ==0) {
+      if (score1 > score2) {
+        cx.font = "bold 34px Verdana";
         cx.fillStyle = "#FBC02D";
         cx.textAlign = "center";
         cx.fillText("PLAYER 1 WINS !!", canvas.width / 2, 150);
 
-      } else if (score_1 == score_2) {
-        cx.font = "bold 34px Times New Roman";
+      } else if (score1 == score2) {
+        cx.font = "bold 34px Verdana";
         cx.fillStyle = "#FBC02D";
         cx.textAlign = "center";
         cx.fillText("GAME TIED !!", canvas.width / 2, 150);
       } else {
-        cx.font = "bold 34px Times New Roman";
+        cx.font = "bold 34px Verdana";
         cx.fillStyle = "#FBC02D";
         cx.textAlign = "center";
         cx.fillText("PLAYER 2 WINS !!", canvas.width / 2, 150);
