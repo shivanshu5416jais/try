@@ -11,7 +11,8 @@ var angle1 = Math.PI / 2;
 var angle2 = Math.PI / 2;
 var weapon1 = "Weapon1";
 var weapon2 = "Weapon1";
-
+var bkg = new Audio("assets/aa.mp3");
+ var myMusic;
 // var myMusic;
 
 // texts for display
@@ -68,6 +69,8 @@ const fire = document.querySelector("#fire-weapon");
 fire.addEventListener("click", function () {
   // document.getElementById("t2").src = "t1.png";
   // document.getElementById("t1").src = "t2.png";
+  bkg.currentTime=0;
+  bkg.play();
   if (remChances1 == 5) {
     isFire1 = true;
     if (remChances1 >= 1) {
@@ -238,13 +241,13 @@ function drawGame() {
         if (240 + x1 > 730 && 240 + x1 < 810 && 500 + y1 > 487)
           { 
         function des1(){
-  document.getElementById("t2").src = "assests/ft1.png";
+  document.getElementById("t2").src = "assets/ft1.png";
 }
 
 setTimeout(des1, 0000);
            
         function t1() {
-  document.getElementById("t2").src = "assests/t1.png";
+  document.getElementById("t2").src = "assets/t1.png";
 }
 
 setTimeout(t1, 1000);
@@ -260,13 +263,13 @@ setTimeout(t1, 1000);
         resetProjectileTwo();
         if (740 + x2 > 172 && 740 + x2 < 252 && 500 + y2 > 487) {
             function des2() {
-  document.getElementById("t1").src = "assests/ft2.png";
+  document.getElementById("t1").src = "assets/ft2.png";
 }
 
 setTimeout(des2, 0000);
            
         function t2() {
-  document.getElementById("t1").src = "assests/t2.png";
+  document.getElementById("t1").src = "assets/t2.png";
 }
 
 setTimeout(t2, 1000);
